@@ -263,6 +263,11 @@
   //#define INVERT_MIN_LIMIT_PIN_MASK ((1<<AXIS_1) | (1<<AXIS_2) | (1<<AXIS_3))
   // Only enable the following line if you have + (max) limit switches attached
   //#define INVERT_MAX_LIMIT_PIN_MASK ((1<<AXIS_1) | (1<<AXIS_2) | (1<<AXIS_3))
+  // Uncomment the following (INVERT_MIN_LIMIT_PIN_MASK) for NC endstops.
+  // By default, most MPCNCs have normally closed (NC) min limit switch on x (AXIS_1),
+  // cloned x (AXIS_4), y (AXIS_2) and cloned y (AXIS_5).
+  // Do *NOT* use $5=1 as it won't work (keep $5=1)
+  #define INVERT_MIN_LIMIT_PIN_MASK ((1<<AXIS_1) | (1<<AXIS_2) | (1<<AXIS_4) | (1<<AXIS_5))
 #endif
 
 // Inverts the spindle enable pin from low-disabled/high-enabled to low-enabled/high-disabled. Useful
