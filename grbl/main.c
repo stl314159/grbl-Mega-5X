@@ -53,6 +53,9 @@ int main(void)
 #if HAS_DIGIPOTS
   current_init();  // Configure stepper driver current
 #endif
+#if HAS_MICROSTEPS
+  microstep_init();
+#endif
   stepper_init();  // Configure stepper pins and interrupt timers
   system_init();   // Configure pinout pins and pin-change interrupt
 

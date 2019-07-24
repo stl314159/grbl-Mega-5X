@@ -602,6 +602,48 @@
     #define DIGIPOT_MOTOR_CURRENT { 135,135,135,135,135 }   // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
   #endif
 
+  // Microstepping pins
+  #define HAS_MICROSTEPS 1
+
+  #define MS1_PORT_0 G
+  #define MS1_BIT_0 1 // X-Microsteps - D40
+  #define MS2_PORT_0 G
+  #define MS2_BIT_0 0 // D41
+
+  #define MS1_PORT_1 K
+  #define MS1_BIT_1 7 // Y-Microsteps - D69
+  #define MS2_PORT_1 G
+  #define MS2_BIT_1 2 // D39
+
+  #define MS1_PORT_2 K
+  #define MS1_BIT_2 6 // Z-Microsteps - D68
+  #define MS2_PORT_2 K
+  #define MS2_BIT_2 5 // D67
+
+  #define MS1_PORT_3 K
+  #define MS1_BIT_3 3 // E0 Microsteps - D65
+  #define MS2_PORT_3 K
+  #define MS2_BIT_3 4 // D66
+
+  #define MS1_PORT_4 K
+  #define MS1_BIT_4 1 // E1 Microsteps - D63
+  #define MS2_PORT_4 K
+  #define MS2_BIT_4 2 // D64
+
+  #define MICROSTEP1 0,0
+  #define MICROSTEP2 1,0
+  #define MICROSTEP4 0,1
+  #define MICROSTEP16 1,1
+
+  #define _MS_BIT(i, j) MS##j##_BIT_##i
+  #define MS_BIT(i, j) _MS_BIT(i, j)
+  #define MS_DDR(i, j) _DDR(MS##j##_PORT_##i)
+  #define MS_PORT(i, j) _PORT(MS##j##_PORT_##i)
+  #define MS_PIN(i, j) _PIN(MS##j##_PORT_##i)
+
+  // Microstep setting (Only functional when stepper driver microstep pins are connected to MCU.
+  #define MICROSTEP_MODES { 16, 16, 16, 16, 16, 16 } // [1,2,4,8,16]
+
 #endif
 
 /*
