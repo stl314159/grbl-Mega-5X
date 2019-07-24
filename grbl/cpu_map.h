@@ -585,6 +585,23 @@
   #define SPINDLE_PWM_PORT  PORTL
   #define SPINDLE_PWM_BIT   4 // D45 / PL4
 
+  // Digipots pins
+  #define HAS_DIGIPOTS 1
+  #define DIGIPOTSS_DDR DDRD
+  #define DIGIPOTSS_PORT PORTD
+  #define DIGIPOTSS_BIT 7 // Arduino D38
+  #define SPI_DDR DDRB
+  #define SPI_PORT PORTB
+  #define MOSI_BIT 2
+  #define SCK_BIT 1
+  #define SS_BIT 0
+
+  // X Y Z E0 E1 digipot channels to stepper driver mapping
+  #define DIGIPOT_CHANNELS  { 4,5,3,0,1 }
+  #ifndef DIGIPOT_MOTOR_CURRENT
+    #define DIGIPOT_MOTOR_CURRENT { 135,135,135,135,135 }   // Values 0-255 (RAMBO 135 = ~0.75A, 185 = ~1A)
+  #endif
+
 #endif
 
 /*

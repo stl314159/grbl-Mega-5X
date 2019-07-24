@@ -693,6 +693,13 @@
    below.
 */
 
+#define DEFAULT_AXIS_0_CURRENT 135
+#define DEFAULT_AXIS_1_CURRENT 135
+#define DEFAULT_AXIS_2_CURRENT 135
+#define DEFAULT_AXIS_3_CURRENT 135
+#define DEFAULT_AXIS_4_CURRENT 135
+#define DEFAULT_AXIS_5_CURRENT 135
+
 // Paste CPU_MAP definitions here.
 
 // Paste default settings definitions here.

@@ -107,23 +107,29 @@ void settings_restore(uint8_t restore_flag) {
     settings.max_travel[AXIS_1] = (-DEFAULT_AXIS1_MAX_TRAVEL);
     settings.max_travel[AXIS_2] = (-DEFAULT_AXIS2_MAX_TRAVEL);
     settings.max_travel[AXIS_3] = (-DEFAULT_AXIS3_MAX_TRAVEL);
+    settings.current[AXIS_1] = DEFAULT_AXIS_1_CURRENT;
+    settings.current[AXIS_2] = DEFAULT_AXIS_2_CURRENT;
+    settings.current[AXIS_3] = DEFAULT_AXIS_3_CURRENT;
     #if N_AXIS > 3
       settings.steps_per_mm[AXIS_4] = DEFAULT_AXIS4_STEPS_PER_UNIT;
       settings.max_rate[AXIS_4] = DEFAULT_AXIS4_MAX_RATE;
       settings.acceleration[AXIS_4] = DEFAULT_AXIS4_ACCELERATION;
       settings.max_travel[AXIS_4] = (-DEFAULT_AXIS4_MAX_TRAVEL);
+      settings.current[AXIS_4] = DEFAULT_AXIS_4_CURRENT;
     #endif
     #if N_AXIS > 4
       settings.steps_per_mm[AXIS_5] = DEFAULT_AXIS5_STEPS_PER_UNIT;
       settings.max_rate[AXIS_5] = DEFAULT_AXIS5_MAX_RATE;
       settings.acceleration[AXIS_5] = DEFAULT_AXIS5_ACCELERATION;
       settings.max_travel[AXIS_5] = (-DEFAULT_AXIS5_MAX_TRAVEL);
+      settings.current[AXIS_5] = DEFAULT_AXIS_5_CURRENT;
     #endif
     #if N_AXIS > 5
       settings.steps_per_mm[AXIS_6] = DEFAULT_AXIS6_STEPS_PER_UNIT;
       settings.max_rate[AXIS_6] = DEFAULT_AXIS6_MAX_RATE;
       settings.acceleration[AXIS_6] = DEFAULT_AXIS6_ACCELERATION;
       settings.max_travel[AXIS_6] = (-DEFAULT_AXIS6_MAX_TRAVEL);
+      settings.current[AXIS_6] = DEFAULT_AXIS_6_CURRENT;
     #endif
 
     write_global_settings();
@@ -237,6 +243,10 @@ uint8_t settings_store_global_setting(uint8_t parameter, float value) {
             break;
           case 2: settings.acceleration[parameter] = value*60*60; break; // Convert to mm/min^2 for grbl internal use.
           case 3: settings.max_travel[parameter] = -value; break;  // Store as negative for grbl internal use.
+          case 4:
+            settings.current[parameter] = value;
+            set_current(parameter, settings.current[parameter]);
+            break;
         }
         break; // Exit while-loop after setting has been configured and proceed to the EEPROM write call.
       } else {
