@@ -374,6 +374,219 @@
   #define SPINDLE_PWM_BIT   5 // MEGA2560 Digital Pin 44
 
 #endif
+
+#ifdef CPU_MAP_2560_RAMBO_BOARD // (Arduino Mega 2560) with Ultimachine RAMBo 1.4 Board
+  #include "nuts_bolts.h"
+
+  // Serial port interrupt vectors
+  #define SERIAL_RX USART0_RX_vect
+  #define SERIAL_UDRE USART0_UDRE_vect
+
+  // Define ports and pins
+  #define DDR(port) DDR##port // Data Direction Register
+  #define _DDR(port) DDR(port)
+  #define PORT(port) PORT##port // Pull-up configuration
+  #define _PORT(port) PORT(port)
+  #define PIN(pin) PIN##pin // For reading the data
+  #define _PIN(pin) PIN(pin)
+
+  // Define step pulse output pins.
+
+  #define STEP_PORT_0 C
+  #define STEP_PORT_1 C
+  #define STEP_PORT_2 C
+  #if N_AXIS > 3
+    #define STEP_PORT_3 C
+  #endif
+  #if N_AXIS > 4
+    #define STEP_PORT_4 C
+  #endif
+  #define STEP_BIT_0 0 // X Step - D37 / PC0
+  #define STEP_BIT_1 1 // Y Step - D36 / PC1
+  #define STEP_BIT_2 2 // Z Step - D35 / PC2
+  #if N_AXIS > 3
+    #define STEP_BIT_3 3 // E0 Step - D34 / PC3
+  #endif
+  #if N_AXIS > 4
+    #define STEP_BIT_4 4 // E1 Step - D33 / PC4
+  #endif
+  #define _STEP_BIT(i) STEP_BIT_##i
+  #define STEP_BIT(i) _STEP_BIT(i)
+  #define STEP_DDR(i) _DDR(STEP_PORT_##i)
+  #define _STEP_PORT(i) _PORT(STEP_PORT_##i)
+  #define STEP_PORT(i) _STEP_PORT(i)
+  #define STEP_PIN(i) _PIN(STEP_PORT_##i)
+
+  // Define step direction output pins.
+  #define DIRECTION_PORT_0 L
+  #define DIRECTION_PORT_1 L
+  #define DIRECTION_PORT_2 L
+  #if N_AXIS > 3
+    #define DIRECTION_PORT_3 L
+  #endif
+  #if N_AXIS > 4
+    #define DIRECTION_PORT_4 L
+  #endif
+  #define DIRECTION_BIT_0 1 // X Dir - D48 / PL1
+  #define DIRECTION_BIT_1 0 // Y Dir - D49 / PL0
+  #define DIRECTION_BIT_2 2 // Z Dir - D47 / PL2
+  #if N_AXIS > 3
+    #define DIRECTION_BIT_3 6 // E0 Step - D43 / PL6
+  #endif
+  #if N_AXIS > 4
+    #define DIRECTION_BIT_4 7 // E1 Step - D42 / PL7
+  #endif
+  #define _DIRECTION_BIT(i) DIRECTION_BIT_##i
+  #define DIRECTION_BIT(i) _DIRECTION_BIT(i)
+  #define DIRECTION_DDR(i) _DDR(DIRECTION_PORT_##i)
+  #define _DIRECTION_PORT(i) _PORT(DIRECTION_PORT_##i)
+  #define DIRECTION_PORT(i) _DIRECTION_PORT(i)
+  #define DIRECTION_PIN(i) _PIN(DIRECTION_PORT_##i)
+
+  // Define stepper driver enable/disable output pin.
+  #define STEPPER_DISABLE_PORT_0 A
+  #define STEPPER_DISABLE_PORT_1 A
+  #define STEPPER_DISABLE_PORT_2 A
+  #if N_AXIS > 3
+    #define STEPPER_DISABLE_PORT_3 A
+  #endif
+  #if N_AXIS > 4
+    #define STEPPER_DISABLE_PORT_4 A
+  #endif
+  #define STEPPER_DISABLE_BIT_0 7 // X Enable - D29 / PA7
+  #define STEPPER_DISABLE_BIT_1 6 // Y Enable - D28 / PA6
+  #define STEPPER_DISABLE_BIT_2 5 // Z Enable - D27 / PA5
+  #if N_AXIS > 3
+    #define STEPPER_DISABLE_BIT_3 4 // E0 Enable - D26 / PA4
+  #endif
+  #if N_AXIS > 4
+    #define STEPPER_DISABLE_BIT_4 3 // E1 Enable - D25 / PA3
+  #endif
+  #define STEPPER_DISABLE_BIT(i) STEPPER_DISABLE_BIT_##i
+  #define STEPPER_DISABLE_DDR(i) _DDR(STEPPER_DISABLE_PORT_##i)
+  #define STEPPER_DISABLE_PORT(i) _PORT(STEPPER_DISABLE_PORT_##i)
+  #define STEPPER_DISABLE_PIN(i) _PIN(STEPPER_DISABLE_PORT_##i)
+
+  // Define homing/hard limit switch input pins and limit interrupt vectors.
+  #define MIN_LIMIT_PORT_0 B
+  #define MIN_LIMIT_PORT_1 B
+  #define MIN_LIMIT_PORT_2 B
+  #if N_AXIS > 3
+    #define MIN_LIMIT_PORT_3 D
+  #endif
+  #if N_AXIS > 4
+    #define MIN_LIMIT_PORT_4 J
+  #endif
+  #define MIN_LIMIT_BIT_0 6 // X Limit Min - D12 / PB6
+  #define MIN_LIMIT_BIT_1 5 // Y Limit Min - D11 / PB5
+  #define MIN_LIMIT_BIT_2 4 // Z Limit Min - D10 / PB4
+  #if N_AXIS > 3
+    #define MIN_LIMIT_BIT_3 4 // Axis number 4 - Ext 2 Pin 2
+  #endif
+  #if N_AXIS > 4
+    #define MIN_LIMIT_BIT_4 6 // Axis number 5 : Ext 2 Pin 4
+  #endif
+  #define _MIN_LIMIT_BIT(i) MIN_LIMIT_BIT_##i
+  #define MIN_LIMIT_BIT(i) _MIN_LIMIT_BIT(i)
+  #define MIN_LIMIT_DDR(i) _DDR(MIN_LIMIT_PORT_##i)
+  #define MIN_LIMIT_PORT(i) _PORT(MIN_LIMIT_PORT_##i)
+  #define MIN_LIMIT_PIN(i) _PIN(MIN_LIMIT_PORT_##i)
+
+  #define MAX_LIMIT_PORT_0 A
+  #define MAX_LIMIT_PORT_1 A
+  #define MAX_LIMIT_PORT_2 C
+  #if N_AXIS > 3
+    #define MAX_LIMIT_PORT_3 E
+  #endif
+  #if N_AXIS > 4
+    #define MAX_LIMIT_PORT_4 E
+  #endif
+  #define MAX_LIMIT_BIT_0 2 // X Limit Max - D24 / PA2
+  #define MAX_LIMIT_BIT_1 1 // Y Limit Max - D23 / PA1
+  #define MAX_LIMIT_BIT_2 7 // Z Limit Max - D29 / PC7
+  #if N_AXIS > 3
+    #define MAX_LIMIT_BIT_3 7 // Axis number 4 - Ext 2 Pin3
+  #endif
+  #if N_AXIS > 4
+    #define MAX_LIMIT_BIT_4 9 // Axis number 5 - Ext 1 Pin 9
+  #endif
+  #define _MAX_LIMIT_BIT(i) MAX_LIMIT_BIT_##i
+  #define MAX_LIMIT_BIT(i) _MAX_LIMIT_BIT(i)
+  #define MAX_LIMIT_DDR(i) _DDR(MAX_LIMIT_PORT_##i)
+  #define MAX_LIMIT_PORT(i) _PORT(MAX_LIMIT_PORT_##i)
+  #define MAX_LIMIT_PIN(i) _PIN(MAX_LIMIT_PORT_##i)
+
+  //  #define LIMIT_INT       PCIE0  // Pin change interrupt enable pin
+  //  #define LIMIT_INT_vect  PCINT0_vect
+  //  #define LIMIT_PCMSK     PCMSK0 // Pin change interrupt register
+  //  #define LIMIT_MASK ((1<<X_LIMIT_BIT)|(1<<Y_LIMIT_BIT)|(1<<Z_LIMIT_BIT)) // All limit bits
+  #define DISABLE_HW_LIMITS_INTERUPT
+
+  // Define spindle enable and spindle direction output pins.
+  #define SPINDLE_ENABLE_DDR      DDRC
+  #define SPINDLE_ENABLE_PORT     PORTC
+  #define SPINDLE_ENABLE_BIT      6 // Motor Extension 2 Pin 4 - D31 / PC6
+  #define SPINDLE_DIRECTION_DDR   DDRC
+  #define SPINDLE_DIRECTION_PORT  PORTC
+  #define SPINDLE_DIRECTION_BIT   5 // Motor Extension 1 Pin 4 - D32 / PC5
+
+  // Define flood and mist coolant enable output pins.
+  #define COOLANT_FLOOD_DDR   DDRH
+  #define COOLANT_FLOOD_PORT  PORTH
+  #define COOLANT_FLOOD_BIT   6 // Extruder 0 (Heat-0) - D9 / PH6
+  #define COOLANT_MIST_DDR    DDRH
+  #define COOLANT_MIST_PORT   PORTH
+  #define COOLANT_MIST_BIT    4 // Extruder 1 (Heat-1) - D7 / PH4
+
+  // Define user-control CONTROLs (cycle start, reset, feed hold) input pins.
+  // NOTE: All CONTROLs pins must be on the same port and not on a port with other input pins (limits).
+  #define CONTROL_DDR       DDRJ
+  #define CONTROL_PIN       PINJ
+  #define CONTROL_PORT      PORTJ
+  #define CONTROL_RESET_BIT         4  // Ext 1 Pin 3 - PCINT13
+  #define CONTROL_FEED_HOLD_BIT     2  // Ext 1 Pin 6 - PCINT11
+  #define CONTROL_CYCLE_START_BIT   3  // Ext 1 Pin 5 - PCINT12
+  #define CONTROL_SAFETY_DOOR_BIT   5  // Ext 2 Pin 8 - PCINT14
+  #define CONTROL_INT       PCIE2  // Pin change interrupt enable pin
+  #define CONTROL_INT_vect  PCINT2_vect
+  #define CONTROL_PCMSK     PCMSK1 // Pin change interrupt register
+  // PJ2:5 corresponds to bits 3:6 in PCMSG1
+  #define CONTROL_MASK      ((1<<(CONTROL_RESET_BIT+1))|(1<<(CONTROL_FEED_HOLD_BIT+1))|(1<<(CONTROL_CYCLE_START_BIT+1))|(1<<(CONTROL_SAFETY_DOOR_BIT+1)))
+
+  // Define probe switch input pin.
+  #define PROBE_DDR       DDRH
+  #define PROBE_PIN       PINH
+  #define PROBE_PORT      PORTH
+  #define PROBE_BIT       2 // PH2
+  #define PROBE_MASK      (1<<PROBE_BIT)
+
+  // Advanced Configuration Below You should not need to touch these variables
+  // Set Timer up to use TIMER5B which is attached to Digital Pin 44 - Ramps 1.4 AUX-2
+  #define SPINDLE_PWM_MAX_VALUE     1024.0 // Translates to about 1.9 kHz PWM frequency at 1/8 prescaler
+  #ifndef SPINDLE_PWM_MIN_VALUE
+  #define SPINDLE_PWM_MIN_VALUE   1   // Must be greater than zero.
+  #endif
+  #define SPINDLE_PWM_OFF_VALUE     0
+  #define SPINDLE_PWM_RANGE         (SPINDLE_PWM_MAX_VALUE-SPINDLE_PWM_MIN_VALUE)
+
+  #define SPINDLE_TCCRA_REGISTER    TCCR5A
+  #define SPINDLE_TCCRB_REGISTER    TCCR5B
+  #define SPINDLE_OCR_REGISTER      OCR5C
+  #define SPINDLE_COMB_BIT          COM5C1
+
+  // 1/8 Prescaler, 16-bit Fast PWM mode
+  #define SPINDLE_TCCRA_INIT_MASK ((1<<WGM40) | (1<<WGM41))
+  #define SPINDLE_TCCRB_INIT_MASK ((1<<WGM42) | (1<<WGM43) | (1<<CS41))
+  #define SPINDLE_OCRA_REGISTER   OCR5A // 16-bit Fast PWM mode requires top reset value stored here.
+  #define SPINDLE_OCRA_TOP_VALUE  0x0400 // PWM counter reset value. Should be the same as PWM_MAX_VALUE in hex.
+
+  // Define spindle output pins.
+  #define SPINDLE_PWM_DDR   DDRL
+  #define SPINDLE_PWM_PORT  PORTL
+  #define SPINDLE_PWM_BIT   4 // D45 / PL4
+
+#endif
+
 /*
 #ifdef CPU_MAP_CUSTOM_PROC
   // For a custom pin map or different processor, copy and edit one of the available cpu
