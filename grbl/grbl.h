@@ -63,6 +63,7 @@
 #include "jog.h"
 #include "sleep.h"
 #include "current_control.h"
+#include "microstep_control.h"
 
 // ---------------------------------------------------------------------------------------
 // COMPILE-TIME ERROR CHECKING OF DEFINE VALUES:
