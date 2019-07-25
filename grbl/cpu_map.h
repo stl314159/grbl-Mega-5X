@@ -472,19 +472,19 @@
   #define MIN_LIMIT_PORT_1 B
   #define MIN_LIMIT_PORT_2 B
   #if N_AXIS > 3
-    #define MIN_LIMIT_PORT_3 D
+    #define MIN_LIMIT_PORT_3 A // xmax limit switch
   #endif
   #if N_AXIS > 4
-    #define MIN_LIMIT_PORT_4 J
+    #define MIN_LIMIT_PORT_4 A // ymax limit switch
   #endif
   #define MIN_LIMIT_BIT_0 6 // X Limit Min - D12 / PB6
   #define MIN_LIMIT_BIT_1 5 // Y Limit Min - D11 / PB5
   #define MIN_LIMIT_BIT_2 4 // Z Limit Min - D10 / PB4
   #if N_AXIS > 3
-    #define MIN_LIMIT_BIT_3 4 // Axis number 4 - Ext 2 Pin 2
+    #define MIN_LIMIT_BIT_3 2
   #endif
   #if N_AXIS > 4
-    #define MIN_LIMIT_BIT_4 6 // Axis number 5 : Ext 2 Pin 4
+    #define MIN_LIMIT_BIT_4 1
   #endif
   #define _MIN_LIMIT_BIT(i) MIN_LIMIT_BIT_##i
   #define MIN_LIMIT_BIT(i) _MIN_LIMIT_BIT(i)
@@ -492,8 +492,8 @@
   #define MIN_LIMIT_PORT(i) _PORT(MIN_LIMIT_PORT_##i)
   #define MIN_LIMIT_PIN(i) _PIN(MIN_LIMIT_PORT_##i)
 
-  #define MAX_LIMIT_PORT_0 A
-  #define MAX_LIMIT_PORT_1 A
+  #define MAX_LIMIT_PORT_0 D
+  #define MAX_LIMIT_PORT_1 J
   #define MAX_LIMIT_PORT_2 C
   #if N_AXIS > 3
     #define MAX_LIMIT_PORT_3 E
@@ -501,14 +501,14 @@
   #if N_AXIS > 4
     #define MAX_LIMIT_PORT_4 E
   #endif
-  #define MAX_LIMIT_BIT_0 2 // X Limit Max - D24 / PA2
-  #define MAX_LIMIT_BIT_1 1 // Y Limit Max - D23 / PA1
+  #define MAX_LIMIT_BIT_0 4
+  #define MAX_LIMIT_BIT_1 6
   #define MAX_LIMIT_BIT_2 7 // Z Limit Max - D29 / PC7
   #if N_AXIS > 3
     #define MAX_LIMIT_BIT_3 7 // Axis number 4 - Ext 2 Pin3
   #endif
   #if N_AXIS > 4
-    #define MAX_LIMIT_BIT_4 9 // Axis number 5 - Ext 1 Pin 9
+    #define MAX_LIMIT_BIT_4 2 // Axis number 5 - Ext 1 Pin 9
   #endif
   #define _MAX_LIMIT_BIT(i) MAX_LIMIT_BIT_##i
   #define MAX_LIMIT_BIT(i) _MAX_LIMIT_BIT(i)
