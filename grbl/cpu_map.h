@@ -470,7 +470,7 @@
   // Define homing/hard limit switch input pins and limit interrupt vectors.
   #define MIN_LIMIT_PORT_0 B
   #define MIN_LIMIT_PORT_1 B
-  #define MIN_LIMIT_PORT_2 B
+  #define MIN_LIMIT_PORT_2 H
   #if N_AXIS > 3
     #define MIN_LIMIT_PORT_3 A // xmax limit switch
   #endif
@@ -479,7 +479,7 @@
   #endif
   #define MIN_LIMIT_BIT_0 6 // X Limit Min - D12 / PB6
   #define MIN_LIMIT_BIT_1 5 // Y Limit Min - D11 / PB5
-  #define MIN_LIMIT_BIT_2 4 // Z Limit Min - D10 / PB4
+  #define MIN_LIMIT_BIT_2 2 // PH4
   #if N_AXIS > 3
     #define MIN_LIMIT_BIT_3 2
   #endif
@@ -554,10 +554,10 @@
   #define CONTROL_MASK      ((1<<(CONTROL_RESET_BIT+1))|(1<<(CONTROL_FEED_HOLD_BIT+1))|(1<<(CONTROL_CYCLE_START_BIT+1))|(1<<(CONTROL_SAFETY_DOOR_BIT+1)))
 
   // Define probe switch input pin.
-  #define PROBE_DDR       DDRH
-  #define PROBE_PIN       PINH
-  #define PROBE_PORT      PORTH
-  #define PROBE_BIT       2 // PH2
+  #define PROBE_DDR       DDRB
+  #define PROBE_PIN       PINB
+  #define PROBE_PORT      PORTB
+  #define PROBE_BIT       4 // Zmin - PB4
   #define PROBE_MASK      (1<<PROBE_BIT)
 
   // Advanced Configuration Below You should not need to touch these variables
