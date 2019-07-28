@@ -700,6 +700,13 @@
 #define DEFAULT_AXIS_4_CURRENT 135
 #define DEFAULT_AXIS_5_CURRENT 135
 
+#define DEFAULT_AXIS_1_ENDSTOP_ADJ 0
+#define DEFAULT_AXIS_2_ENDSTOP_ADJ 0
+#define DEFAULT_AXIS_3_ENDSTOP_ADJ 0
+#define DEFAULT_AXIS_4_ENDSTOP_ADJ 0
+#define DEFAULT_AXIS_5_ENDSTOP_ADJ 0
+#define DEFAULT_AXIS_6_ENDSTOP_ADJ 0
+
 // Paste CPU_MAP definitions here.
 
 // Paste default settings definitions here.

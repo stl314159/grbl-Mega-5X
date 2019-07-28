@@ -216,6 +216,7 @@ void report_grbl_settings() {
         case 2: report_util_float_setting(val+idx,settings.acceleration[idx]/(60*60),N_DECIMAL_SETTINGVALUE); break;
         case 3: report_util_float_setting(val+idx,-settings.max_travel[idx],N_DECIMAL_SETTINGVALUE); break;
         case 4: report_util_float_setting(val+idx,settings.current[idx],N_DECIMAL_SETTINGVALUE); break;
+        case 5: report_util_float_setting(val+idx,settings.endstop_adj[idx],N_DECIMAL_SETTINGVALUE); break;
       }
     }
     val += AXIS_SETTINGS_INCREMENT;

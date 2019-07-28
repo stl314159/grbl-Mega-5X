@@ -110,12 +110,16 @@ void settings_restore(uint8_t restore_flag) {
     settings.current[AXIS_1] = DEFAULT_AXIS_1_CURRENT;
     settings.current[AXIS_2] = DEFAULT_AXIS_2_CURRENT;
     settings.current[AXIS_3] = DEFAULT_AXIS_3_CURRENT;
+    settings.endstop_adj[AXIS_1] = DEFAULT_AXIS_1_ENDSTOP_ADJ;
+    settings.endstop_adj[AXIS_2] = DEFAULT_AXIS_2_ENDSTOP_ADJ;
+    settings.endstop_adj[AXIS_3] = DEFAULT_AXIS_3_ENDSTOP_ADJ;
     #if N_AXIS > 3
       settings.steps_per_mm[AXIS_4] = DEFAULT_AXIS4_STEPS_PER_UNIT;
       settings.max_rate[AXIS_4] = DEFAULT_AXIS4_MAX_RATE;
       settings.acceleration[AXIS_4] = DEFAULT_AXIS4_ACCELERATION;
       settings.max_travel[AXIS_4] = (-DEFAULT_AXIS4_MAX_TRAVEL);
       settings.current[AXIS_4] = DEFAULT_AXIS_4_CURRENT;
+      settings.endstop_adj[AXIS_4] = DEFAULT_AXIS_4_ENDSTOP_ADJ;
     #endif
     #if N_AXIS > 4
       settings.steps_per_mm[AXIS_5] = DEFAULT_AXIS5_STEPS_PER_UNIT;
@@ -123,6 +127,7 @@ void settings_restore(uint8_t restore_flag) {
       settings.acceleration[AXIS_5] = DEFAULT_AXIS5_ACCELERATION;
       settings.max_travel[AXIS_5] = (-DEFAULT_AXIS5_MAX_TRAVEL);
       settings.current[AXIS_5] = DEFAULT_AXIS_5_CURRENT;
+      settings.endstop_adj[AXIS_5] = DEFAULT_AXIS_5_ENDSTOP_ADJ;
     #endif
     #if N_AXIS > 5
       settings.steps_per_mm[AXIS_6] = DEFAULT_AXIS6_STEPS_PER_UNIT;
@@ -130,6 +135,7 @@ void settings_restore(uint8_t restore_flag) {
       settings.acceleration[AXIS_6] = DEFAULT_AXIS6_ACCELERATION;
       settings.max_travel[AXIS_6] = (-DEFAULT_AXIS6_MAX_TRAVEL);
       settings.current[AXIS_6] = DEFAULT_AXIS_6_CURRENT;
+      settings.endstop_adj[AXIS_6] = DEFAULT_AXIS_6_ENDSTOP_ADJ
     #endif
 
     write_global_settings();
@@ -246,6 +252,9 @@ uint8_t settings_store_global_setting(uint8_t parameter, float value) {
           case 4:
             settings.current[parameter] = value;
             set_current(parameter, settings.current[parameter]);
+            break;
+          case 5:
+            settings.endstop_adj[parameter] = value;
             break;
         }
         break; // Exit while-loop after setting has been configured and proceed to the EEPROM write call.

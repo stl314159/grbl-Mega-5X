@@ -380,12 +380,20 @@ void limits_go_home(uint8_t cycle_mask)
           #endif
           // Set target direction based on cycle mask and homing cycle approach state.
           // NOTE: This happens to compile smaller than any other implementation tried.
+          // Allow a per-stepper-axis offset to be set in to adjust for the machine
+          // or endstops not being perfectly square/aligned.
+          float axis_offset = 0;
+          if (n_cycle == 0 && N_AXIS == 5) {
+            if (settings.endstop_adj[idx] > 0) {
+              axis_offset = settings.endstop_adj[idx];
+            }
+          }
           if (bit_istrue(settings.homing_dir_mask,bit(idx))) {
             if (approach) { target[idx] = -max_travel; }
-            else { target[idx] = max_travel; }
+            else { target[idx] = max_travel + axis_offset; }
           } else {
             if (approach) { target[idx] = max_travel; }
-            else { target[idx] = -max_travel; }
+            else { target[idx] = -max_travel - axis_offset; }
           }
           // Apply axislock to the step port pins active in this cycle.
           axislock[idx] = step_pin[idx];
