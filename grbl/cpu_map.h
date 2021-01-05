@@ -571,8 +571,8 @@
 
   #define SPINDLE_TCCRA_REGISTER    TCCR5A
   #define SPINDLE_TCCRB_REGISTER    TCCR5B
-  #define SPINDLE_OCR_REGISTER      OCR5C
-  #define SPINDLE_COMB_BIT          COM5C1
+  #define SPINDLE_OCR_REGISTER      OCR5B
+  #define SPINDLE_COMB_BIT          COM5B1
 
   // 1/8 Prescaler, 16-bit Fast PWM mode
   #define SPINDLE_TCCRA_INIT_MASK ((1<<WGM40) | (1<<WGM41))
