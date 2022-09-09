@@ -23,7 +23,8 @@
 #define grbl_h
 
 // Grbl versioning system
-#define GRBL_VERSION "1.1k"
+#define GRBL_VERSION "1.1f" // Fake version for Easel
+//#define GRBL_VERSION "1.1k" // Real version
 #define GRBL_VERSION_BUILD "20190514"
 
 // Define standard libraries used by Grbl.

@@ -463,20 +463,20 @@
   #define DEFAULT_AXIS1_ACCELERATION (400.0*60*60) // 300*60*60 mm/min^2 = 300 mm/sec^2
   #define DEFAULT_AXIS2_ACCELERATION (400.0*60*60) // 300*60*60 mm/min^2 = 300 mm/sec^2
   #define DEFAULT_AXIS3_ACCELERATION (200.0*60*60) // 100*60*60 mm/min^2 = 100 mm/sec^2
-  #define DEFAULT_AXIS1_MAX_TRAVEL 600.0 // mm
-  #define DEFAULT_AXIS2_MAX_TRAVEL 600.0 // mm
-  #define DEFAULT_AXIS3_MAX_TRAVEL 120.0 // mm
+  #define DEFAULT_AXIS1_MAX_TRAVEL 1000.0 // X1 Axis Length (mm)
+  #define DEFAULT_AXIS2_MAX_TRAVEL 660.0 // Y1 Axis Length (mm)
+  #define DEFAULT_AXIS3_MAX_TRAVEL 120.0 // Z Axis Length (mm)
   #if N_AXIS > 3
     #define DEFAULT_AXIS4_STEPS_PER_UNIT 100
     #define DEFAULT_AXIS4_MAX_RATE 7200 // 9000 mm/min = 9000/60 = 150 mm/sec
     #define DEFAULT_AXIS4_ACCELERATION (400.0*60*60) // 100*60*60 mm/min^2 = 100 mm/sec^2
-    #define DEFAULT_AXIS4_MAX_TRAVEL 600.0 // mm
+    #define DEFAULT_AXIS4_MAX_TRAVEL 1000.0 // X2 Axis Length (mm)
   #endif
   #if N_AXIS > 4
     #define DEFAULT_AXIS5_STEPS_PER_UNIT 100
     #define DEFAULT_AXIS5_MAX_RATE 7200 // 9000 mm/min = 9000/60 = 150 mm/sec
     #define DEFAULT_AXIS5_ACCELERATION (400.0*60*60) // 100*60*60 mm/min^2 = 100 mm/sec^2
-    #define DEFAULT_AXIS5_MAX_TRAVEL 600.0 // mm
+    #define DEFAULT_AXIS5_MAX_TRAVEL 660.0 // Y2 Axis Length (mm)
   #endif
   #if N_AXIS > 5
     #define DEFAULT_AXIS6_STEPS_PER_UNIT 8.888889 // Direct drive : (200 pas par tours * 1/16 microsteps)/360°
